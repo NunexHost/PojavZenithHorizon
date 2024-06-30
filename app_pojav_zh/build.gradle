@@ -78,7 +78,7 @@ android {
     }
 
     buildTypes {
-        debug {
+        release {
             // Don't set to true or java.awt will be a.a or something similar.
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -88,7 +88,7 @@ android {
             resValue 'string', 'application_package', 'net.kdt.pojavlaunch.zh'
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.zh'
             resValue 'string', 'zh_version_status', 'release'
-            signingConfig signingConfigs.releaseBuild
+            signingConfig signingConfigs.releaseBuild 
         }
     }
 
