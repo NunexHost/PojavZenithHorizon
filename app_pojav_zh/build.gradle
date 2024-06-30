@@ -78,6 +78,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.customDebug
+            resValue 'string', 'application_package', 'net.kdt.pojavlaunch.zh'
+            resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.zh'
         release {
             // Don't set to true or java.awt will be a.a or something similar.
             minifyEnabled false
