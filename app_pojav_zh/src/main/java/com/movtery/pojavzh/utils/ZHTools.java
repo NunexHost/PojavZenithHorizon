@@ -459,9 +459,7 @@ public class ZHTools {
                 context.getString(R.string.zh_about_version_status_main_branch) :
                 context.getString(R.string.zh_about_version_status_other_branch);
 
-        String status = Objects.equals(context.getString(R.string.zh_version_status), "debug") ?
-                context.getString(R.string.zh_about_version_status_debug) :
-                Objects.equals(context.getString(R.string.zh_version_status), "release") ?
+        String status = Objects.equals(context.getString(R.string.zh_version_status), "release") ?
                         context.getString(R.string.zh_about_version_status_release) :
                         context.getString(R.string.zh_unknown);
 
