@@ -1,8 +1,12 @@
 package net.kdt.pojavlaunch.customcontrols.mouse;
 
+import android.content.res.Configuration;
+import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import androidx.annotation.RequiresApi;
 
 import net.kdt.pojavlaunch.MainActivity;
 import net.kdt.pojavlaunch.MinecraftGLSurface;
@@ -10,6 +14,7 @@ import net.kdt.pojavlaunch.Tools;
 
 import org.lwjgl.glfw.CallbackBridge;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class AndroidPointerCapture implements ViewTreeObserver.OnWindowFocusChangeListener, View.OnCapturedPointerListener {
     private static final float TOUCHPAD_SCROLL_THRESHOLD = 1;
     private final AbstractTouchpad mTouchpad;
@@ -49,6 +54,21 @@ public class AndroidPointerCapture implements ViewTreeObserver.OnWindowFocusChan
         // Read from relative axis directly to work around.
         float relX = event.getAxisValue(MotionEvent.AXIS_RELATIVE_X);
         float relY = event.getAxisValue(MotionEvent.AXIS_RELATIVE_Y);
+
+        // Verifica a orientação da tela
+        int orientation = view.getContext().getResources().getConfiguration().orientation;
+
+        // Inverte os eixos somente se a tela estiver na orientação paisagem (horizontal)
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU && orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // Troca os valores de relX e relY
+            float temp = relX;
+            relX = relY;
+            relY = temp;
+
+            // Inverte o sinal de relX e relY
+            relX = -relX;
+        }
+
         if(!CallbackBridge.isGrabbing()) {
             enableTouchpadIfNecessary();
             // Yes, if the user's touchpad is multi-touch we will also receive events for that.
